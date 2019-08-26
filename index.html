@@ -1,67 +1,77 @@
 <!doctype html>
 <html>
   <head>
-    <title>WEB1 - WEB</title>
+    <title>홍석영의 웹페이지-메인페이지</title>
     <meta charset ="utf-8">
+    <style>
+      @media(max-width: 800px) {
+              #grid {
+                  display: block;
+              }
+      }
+      #grid {
+          display: grid;
+          grid-template-columns: 150px 1fr;
+      }
+      #article {
+        padding-left: 25px;
+      }
+      body{
+          margin: 0;
+      }
+      a{
+        color: black;
+        text-decoration: none;
+      }
+      h1{
+        border-bottom : 1px solid gray;
+        margin: 0px;
+        padding: 20px;
+  
+        font-size: 45px;
+        text-align: center;
+      }
+      #grid ol {
+          border-right : 1px solid gray;
+          width: 100px;
+          margin: 0;
+          padding: 20px;
+      }
+    </style>
   </head>
   <body>
-    <h1><a href="index.html">WEB</a></h1>
-  <input id="night_day" type="button" value="night" onclick="
-    nightDayHandler(this);
-  ">
-  <ol>
-    <li><a href="1.html">HTML</a></li>
-    <li><a href="2.html">CSS</a></li>
-    <li><a href="3.html">JavaScript</a></li>
-  </ol>
+    <h1><a href="index.html">홍석영의 웹페이지</a></h1>
+  
+  <div id = "grid">
+    <ol>
+      <li><a href="1.html">프로필</a></li>
+      <li><a href="2.html">웹게임</a></li>
+      <li><a href="3.html">축구</a></li>
+    </ol>
+    <div id = "article">
+        <h2>홍석영의 웹페이지-메인페이지</h2>
 
-      <script>
-            var coworkers = {
-                "programmer":"Hong",
-                "designer":"gerrard"
-            }
-            document.write("programmer : " +coworkers.programmer +"<br>");
-            document.write("designer : " +coworkers.designer +"<br>");
-            coworkers.bookkeeper ="duru";
-
-            document.write("bookkeeper : " +coworkers.bookkeeper +"<br>");
-
-            function LinksSetColor(color){
-              var alist = document.querySelectorAll('a');
-              var i = 0;
-              while(i < alist.length){
-                alist[i].style.color = color;
-                i = i + 1;
-              }
-            }
-          function BodySetColor(color){
-            document.querySelector('body').style.color = color;
-          }
-          function BodySetBackgroundColor(color){
-            document.querySelector('body').style.backgroundColor = color;
-          }
-          function nightDayHandler(self){
-            var target = document.querySelector('body');
-            if(self.value === 'night'){
-              Body.setBackgroundColor('black');
-              Body.setColor('white');
-              self.value = 'day';
-              Links.setColor('powderblue');
-            } else {
-              Body.setBackgroundColor('white');
-              Body.setColor('black');
-              self.value = 'night';
-              Links.setColor('blue');
-            }
-          }
-      </script>
-  <h2>JavaScript</h2>
-  <p>
-    JavaScript (/ˈdʒɑːvəˌskrɪpt/[6]), often abbreviated as JS, is a high-level, dynamic, weakly typed, prototype-based, multi-paradigm, and interpreted programming language. Alongside HTML and CSS, JavaScript is one of the three core technologies of World Wide Web content production. It is used to make webpages interactive and provide online programs, including video games. The majority of websites employ it, and all modern web browsers support it without the need for plug-ins by means of a built-in JavaScript engine. Each of the many JavaScript engines represent a different implementation of JavaScript, all based on the ECMAScript specification, with some engines not supporting the spec fully, and with many engines supporting additional features beyond ECMA.
-  </p>
-
-    <h2>WEB에 오신 것을 환영합니다!</h2>
-
+        <h3>WEB에 오신 것을 환영합니다!</h3>
+        <p>안녕하세요. 홍석영의 웹페이지입니다. 열심히 하겠습니다. 방문해주셔서 감사합니다.</p>
+        <script>      
+        var coworkers = {
+          "programmer":"Hong",
+          "designer":"Hong"
+        }
+        document.write("programmer : " +coworkers.programmer +"<br>");
+        document.write("designer : " +coworkers.designer +"<br>");
+        coworkers.bookkeeper ="Hong";
+   
+        document.write("bookkeeper : " +coworkers.bookkeeper +"<br>");
+      </script> 
+    </div>
+  </div>
+  
+    
+  
+   
+  </script>
+  
+  
   </body>
-
 </html>

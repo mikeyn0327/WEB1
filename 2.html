@@ -1,46 +1,64 @@
 <!doctype html>
 <html>
   <head>
-    <title>WEB1 - CSS</title>
+    <title>홍석영의 웹페이지 - 웹게임</title>
     <meta charset ="utf-8">
   </head>
   <body>
-    <h1><a href = "index.html">WEB</a></h1>
-    <input id="night_day" type="button" value="night" onclick="
-      nightDayHandler(this);
-    ">
-    <ol>
-      <li><a href = "1.html" class="saw">HTML</a></li>
-      <li><a href = "2.html" class="active">CSS</a></li>
-      <li><a href = "3.html" class="saw">JavaScript</a></li>
-    </ol>
+    <h1><a href = "index.html">홍석영의 웹페이지</a></h1>
+    
 
-    <h2>CSS이란 무엇인가?</h2>
+    <div id = "grid">
+      <ol>
+        <li><a href = "1.html" class="active">프로필</a></li>
+        <li><a href = "2.html" class="saw">웹게임</a></li>
+        <li><a href = "3.html" class="saw">축구</a></li>
+      </ol>
+      <div id = "article">
+        <h2>웹게임</h2>
 
-    <p>Hypertext Markup Language (HTML) is the standard markup language
-    for documents designed to be displayed in a web browser. It can
-    be assisted by technologies such as Cascading Style Sheets (CSS)
-    and scripting languages such as JavaScript.</p>
+        <p>제가 javascript를 이용하여 만든 웹게임입니다.
+        </p>
 
-    <p>Web browsers receive HTML documents from a web server or from
-    local storage and render the documents into multimedia web pages.
-    HTML describes the structure of a web page semantically and originally
-    included cues for the appearance of the document.</p>
+        </div>
+    </div>
   </body>
   <style>
+    @media(max-width: 800px) {
+            #grid {
+                display: block;
+            }
+    }
+    #grid {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+    }
+    #article {
+      padding-left: 25px;
+    }
+    body{
+        margin: 0;
+    }
     a{
       color: black;
       text-decoration: none;
     }
     h1{
+      border-bottom : 1px solid gray;
+      margin: 0px;
+      padding: 20px;
+
       font-size: 45px;
       text-align: center;
     }
-    .saw {
-        color: gray;
+    #grid ol {
+        border-right : 1px solid gray;
+        width: 100px;
+        margin: 0;
+        padding: 20px;
     }
-    .active{
-        color: red;
-    }
+
+
   </style>
+
 </html>
