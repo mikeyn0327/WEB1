@@ -1,0 +1,22 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>홍석영의 웹페이지-웹게임-틱택토</title>
+        <style>
+            td {
+                border : 1px solid black;
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                font-weight: bold;
+                font-size : 35px;
+            }
+                
+        </style>
+    </head>
+    
+    <body>
+        <script src="tictacto.js"></script>
+    </body>
+</html>
