@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>minesweaper</title>
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<style>
+.tile-basic{
+   border: 1px solid black;
+   background: #77a;
+}
+.tile-basic:hover{
+   background: #aad;
+}
+.tile-bomb{
+   border: 1px solid black;
+   background: red;
+}
+.tile-clear{
+   border: 1px solid black;
+   background: #dcdcdc;
+}
+.com{
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+</style>
+
+
+</head>
+<body>
+
+<div id="mineMapPrint">
+
+</div>
+<div>
+<button type="button" id="resetButton">게임 재시작</button>
+</div>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	var arr = new Array();
+	var openCount=0;
+	var mineCount=0;
+	var mine=-1; //마인
+	var isInit=true;
+	var isConfirm=false; //마인인지여부
+	
+	var INIT_BUTTON=100; //처음빈공간
+	var CLEAR_BUTTON=200;
+	var AROUND_BUTTON=300;//주변폭탄개수
+	var MINE_MAP_ROW=10; //가로크기
+	var MINE_MAP_COL=10; //세로크기
+	var MINE_NUM=10;
+	initPrint();
+	setMine()
+	mineMapPrint(); 
+	/**
+	 * @TODO 
+	 */
+	function initPrint(){
+		for(var i=0;i<MINE_MAP_COL;i++){
+			arr[i]=new Array();
+			for(var j=0;j<MINE_MAP_ROW;j++){
+				arr[i][j]=INIT_BUTTON;
+			}
+		} 
+	
+	}
+	/**
+	 * @TODO 랜덤으로 마인생성
+	 * @TODO 배열에 마인 -1로 마인셋팅
+	 */
+	function setMine() {
+ 	  // x축
+ 	  var arrayX = [0,1,2,3,4,5,6,7,8,9];
+ 	  // y축
+ 	  var arrayY = [0,1,2,3,4,5,6,7,8,9];
+  	 // x축과 y축 섞기
+  	 for(var i=0;i<MINE_NUM;i++) {
+     	 randNum1 = Math.floor(Math.random()*MINE_NUM);
+     	 randNum2 = Math.floor(Math.random()*MINE_NUM);
+     	 randNum3 = Math.floor(Math.random()*MINE_NUM);
+     	 randNum4 = Math.floor(Math.random()*MINE_NUM);
+    	  [arrayX[randNum1],arrayX[randNum2]] = [arrayX[randNum2],arrayX[randNum1]]; //템프를이용 서로 값변경
+    	  [arrayY[randNum3],arrayY[randNum4]] = [arrayY[randNum4],arrayY[randNum3]];
+ 	  }
+   		console.log(arrayX);
+  		console.log(arrayY);
+ 
+   		for(var i=0;i<MINE_NUM;i++) {
+	   		arr[arrayX[i]][arrayY[i]] = mine; 
+   		}
+	}
+	/**
+	 * @TODO 배열의 값으로 버튼판단하여 화면에 렌더링부분
+	 */
+	function mineMapPrint () {
+		var str="";
+		for(var i=0;i<MINE_MAP_COL;i++){
+			for(var j=0;j<MINE_MAP_ROW;j++){
+			
+				if(arr[i][j]==INIT_BUTTON){
+					str+="<Button tpye='button' val='' class='tile-basic basic com' locationX='"+i+"'locationY='"+j+"'></button>";
+				}else if(arr[i][j]==mine){
+					var color = isInit ? "tile-basic" : "tile-bomb"; //*basic을 bomb로 바꾸면 폭탄위치확인가능*
+					str+="<Button tpye='button' val='' class='"+color+" mine com' locationX='"+i+"'locationY='"+j+"'></button>";
+				}else if(arr[i][j]==CLEAR_BUTTON){
+					str+="<Button tpye='button' val='' class='tile-clear minwan com' locationX='"+i+"'locationY='"+j+"'></button>";
+				}else{
+					str+="<Button tpye='button' val='' class='tile-clear com' locationX='"+i+"'locationY='"+j+"''>"+arr[i][j]+"</button>"; //주변폭탄 개수
+				}
+			
+			}
+			str+="<br/>";
+		}
+		$("#mineMapPrint").html(str);
+	
+	}
+	/**
+	 * @TODO 
+	 */
+	
+	function mineCheck(x,y){ //주변폭탄
+		var mine=0;
+		if(isMine(x-1,y-1)) mine++;
+		if(isMine(x,y-1)) mine++;
+		if(isMine(x+1,y-1)) mine++;
+		if(isMine(x-1,y)) mine++;
+		if(isMine(x+1,y)) mine++;
+		if(isMine(x-1,y+1)) mine++;
+		if(isMine(x,y+1)) mine++;
+		if(isMine(x+1,y+1)) mine++;
+	
+		return mine;
+	}
+	
+	/**
+	 * @TODO 
+	 */
+	function isMine(x,y){
+		if(x<0 || x>= MINE_MAP_COL || y<0 || y>= MINE_MAP_ROW) return false;
+		return arr[x][y] == mine ? true:false; 
+	
+	}
+	
+	/**
+	  @TODO 
+	 * @TODO 
+	 * @TODO 
+	 */
+	function fillSpace(x, y, INIT_BUTTON, CLEAR_BUTTON){ //재귀함수를 통한 빈블럭 격파 및 주변 마인체크
+		var aroundMine=mineCheck(x,y);  //주변마인체크
+		
+		if(x<0 || x>= MINE_MAP_COL || y<0 || y>= MINE_MAP_ROW){ 
+			return 0; 
+		}else if(arr[x][y] != INIT_BUTTON){ 
+			return 0; 
+		}else if(aroundMine!=0){                 //주변에 마인있으면 재귀함수 말고 주변 마인수 화면출력
+			arr[x][y]=aroundMine;
+			openCount++;
+			return 0;
+		}else{
+	 		 arr[x][y] = CLEAR_BUTTON;
+	 		openCount++;
+	 	 	return fillSpace(x-1,y,INIT_BUTTON,CLEAR_BUTTON)+fillSpace(x,y-1,INIT_BUTTON,CLEAR_BUTTON)
+	 	 	+fillSpace(x+1,y,INIT_BUTTON,CLEAR_BUTTON)+fillSpace(x,y+1,INIT_BUTTON,CLEAR_BUTTON);
+		}
+	} 
+	/**
+	* @TODO 마우스 좌클릭
+	 * @TODO 마인있는지 확인
+	 */
+	
+	function mineConfirm(x,y,callback){ //마우스 좌클릭
+		fillSpace(x,y,INIT_BUTTON,CLEAR_BUTTON);
+ 		callback();
+	}
+	//버튼 체크부분
+	$("#mineMapPrint").on("click","button",function(){
+		var locationX=$(this).attr("locationX");
+		var locationY=$(this).attr("locationY");
+	
+	 	if(arr[locationX][locationY]==mine){ //이게 마인이 맞으면 끝나는거니까 (겜종료)
+			for(var x=0;x<MINE_MAP_COL;x++){ //전체마인이랑 주변 체크해서 겜끝내는부분
+				 for(var y=0;y<MINE_MAP_ROW;y++){
+					if(arr[x][y]!=-1){
+						 arr[x][y]=mineCheck(x,y);
+					 }
+			 	}
+		 	}
+			isInit=false;
+			mineMapPrint();
+			alert("게임종료");
+	 	}else{
+			mineConfirm(parseInt(locationX),parseInt(locationY),function() 
+					{
+						mineMapPrint();
+		 	 			if(MINE_MAP_ROW*MINE_MAP_COL-openCount==MINE_NUM){
+			 				alert("클리어하셨습니다!");	
+			 			} 
+				
+					});
+	 	}
+	});
+	
+	
+	/**
+	* @TODO 마우스 우클릭
+	 */
+	$("#mineMapPrint").on("contextmenu","button",function(event){
+		event.preventDefault();
+		var locationX=$(this).attr("locationX");
+		var locationY=$(this).attr("locationY");
+		
+		if(arr[locationX][locationY] != mine && arr[locationX][locationY] != INIT_BUTTON ) return; //예외처리
+		if($(this).css("backgroundColor")=="rgb(170, 170, 221)"){
+			$(this).css("backgroundColor","#FFC6C3");
+		}else if($(this).css("backgroundColor")=="rgb(119, 119, 170)"){
+			$(this).css("backgroundColor","#FFC6C3");
+		}else{
+			$(this).css("backgroundColor","#77a");
+		}
+		
+	});
+	
+	
+	/**
+	* @TODO 게임재시작
+	 */
+	$("#resetButton").on("click", function() {
+		location.reload(true);
+	});
+});
+</script>
+
+</body>
+</html>
