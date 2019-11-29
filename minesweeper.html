@@ -30,8 +30,7 @@
 
 </head>
 <body>
-	<h1>Helllo </h1>
-<!-- 
+
 <div id="mineMapPrint">
 
 </div>
@@ -69,10 +68,7 @@ $(document).ready(function(){
 		} 
 	
 	}
-	/**
-	 * @TODO 랜덤으로 마인생성
-	 * @TODO 배열에 마인 -1로 마인셋팅
-	 */
+	
 	function setMine() {
  	  // x축
  	  var arrayX = [0,1,2,3,4,5,6,7,8,9];
@@ -94,9 +90,7 @@ $(document).ready(function(){
 	   		arr[arrayX[i]][arrayY[i]] = mine; 
    		}
 	}
-	/**
-	 * @TODO 배열의 값으로 버튼판단하여 화면에 렌더링부분
-	 */
+
 	function mineMapPrint () {
 		var str="";
 		for(var i=0;i<MINE_MAP_COL;i++){
@@ -119,9 +113,7 @@ $(document).ready(function(){
 		$("#mineMapPrint").html(str);
 	
 	}
-	/**
-	 * @TODO 
-	 */
+
 	
 	function mineCheck(x,y){ //주변폭탄
 		var mine=0;
@@ -136,21 +128,14 @@ $(document).ready(function(){
 	
 		return mine;
 	}
-	
-	/**
-	 * @TODO 
-	 */
+
 	function isMine(x,y){
 		if(x<0 || x>= MINE_MAP_COL || y<0 || y>= MINE_MAP_ROW) return false;
 		return arr[x][y] == mine ? true:false; 
 	
 	}
 	
-	/**
-	  @TODO 
-	 * @TODO 
-	 * @TODO 
-	 */
+
 	function fillSpace(x, y, INIT_BUTTON, CLEAR_BUTTON){ //재귀함수를 통한 빈블럭 격파 및 주변 마인체크
 		var aroundMine=mineCheck(x,y);  //주변마인체크
 		
@@ -235,7 +220,7 @@ $(document).ready(function(){
 	});
 });
 </script>
--->
+
 	
 </body>
 </html>
